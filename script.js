@@ -41,7 +41,8 @@ const time = {
 }
 
 function showTime(a){
-    document.getElementById('time').innerText = (`Время ${a.hours}:${a.minutes}:${a.seconds}`)
+    document.getElementById('time').innerHTML = `Время 
+${String(a.hours).padStart(2,'0')}:${a.minutes.toString().padStart(2,'0')}:${a.seconds.toString().padStart(2,'0')}`
 }
 
 // showTime(time)
@@ -63,8 +64,24 @@ function changeSeconds(b){
     showTime(time)
 }
 
-changeSeconds(200)
+// changeSeconds(200)
 
+function addSeconds(s) {
+    const seconds = time.seconds + s
+    const minutes = time.minutes + Math.floor(seconds/60) 
+    const hours = time.hours + Math.floor(minutes/60)
+    time.seconds = seconds%60
+    time.minutes = minutes%60
+    time.hours = hours%24
+    showTime(time)
+}
+function addMinutes(m) {
+    addSeconds(m*60)
+}
+function addHours(h) {
+    addMinutes(h*60)
+}
+showTime(time)
 
 
 
@@ -81,13 +98,46 @@ function degree(x,y){
 console.log(degree(2,2))
 
 
-function maxDivider(a,b){
-    if( a = 1 || b = 1){
-        return Math.min(a,b)
+function maxDivider(a,b, div=Math.min(a,b)){
+    if( a%div==0 && b%div==0 ){
+        return div
     }else{
-        let c = a % b
-        return c = 0 ? b :maxDivider(b,c)
+        return maxDivider(a,b, div-1)
     }
 }
 
 console.log(maxDivider(56,98))
+
+
+
+function maxNumber(num){
+    if(num < 10){
+        return num
+    }else{
+        return Math.max(num % 10,maxNumber(parseInt(num/10))) 
+        Math.max(6,3,4,2,3) 
+    }
+}
+
+
+
+console.log(maxNumber(32436))
+console.log(Math.max(...String(32436).split('')))
+
+
+function simpleNumber(n, a=n-1){
+    if(a == 1){
+        return true
+    }else{
+        return  n % a == 0 ? false : simpleNumber(n, a - 1)
+    }
+}
+console.log(simpleNumber(2))
+
+function allFactor(f,l = 2){
+    if(l == 1){
+        return f
+    }else{
+        const fac = 
+    }
+}
